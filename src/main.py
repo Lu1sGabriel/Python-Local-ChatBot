@@ -4,54 +4,57 @@ from chatbot.chatbot import ChatBot
 from chatbot.conversation_storage import ConversationStorage
 
 
-def ask_choice(prompt, options):
+def ask_choice(prompt: str, options: list[str]) -> str:
     print(prompt)
     for i, option in enumerate(options, start=1):
         print(f"{i}. {option}")
-    choice = input("Selecione uma opção: ").strip()
-    if choice.isdigit() and 1 <= int(choice) <= len(options):
-        return options[int(choice) - 1]
-    return None
+
+    while True:
+        choice = input("Selecione uma opção: ").strip()
+        if choice.isdigit() and 1 <= int(choice) <= len(options):
+            return options[int(choice) - 1]
+        print("Opção inválida, tente novamente.")
+
+
+def create_new_user(storage: ConversationStorage) -> tuple[str, str]:
+    user_id = f"user_{uuid4().hex[:8]}"
+    print(f"Novo usuário criado: {user_id}")
+    conversation_id = storage.start_conversation(user_id)
+    return user_id, conversation_id
 
 
 def main():
     storage = ConversationStorage()
-
-    # Verifica se há usuários salvos
     users = storage.list_users()
+
     if users:
-        choice = ask_choice("Usuário existente encontrado. O que deseja fazer?", [
+        action = ask_choice("Usuário existente encontrado. O que deseja fazer?", [
             "Selecionar um usuário existente",
             "Criar novo usuário"
         ])
 
-        if choice == "Selecionar um usuário existente":
-            user_id = ask_choice("Escolha o usuário:", users)
-        else:
-            user_id = f"user_{uuid4().hex[:8]}"
+        user_id = ask_choice("Escolha o usuário:", users) if action == "Selecionar um usuário existente" \
+            else create_new_user(storage)[0]
+
     else:
         print("Nenhum usuário encontrado, criando novo...")
-        user_id = f"user_{uuid4().hex[:8]}"
+        user_id, conversation_id = create_new_user(storage)
+        ChatBot(user_id, conversation_id, storage).start()
+        return
 
-    # Verifica se há conversas existentes
     conversations = storage.list_conversations(user_id)
     if conversations:
-        choice = ask_choice("Conversas encontradas para este usuário. O que deseja fazer?", [
+        action = ask_choice("Conversas encontradas. O que deseja fazer?", [
             "Continuar uma conversa existente",
             "Iniciar nova conversa"
         ])
-
-        if choice == "Continuar uma conversa existente":
-            conversation_id = ask_choice("Escolha a conversa:", conversations)
-        else:
-            conversation_id = storage.start_conversation(user_id)
+        conversation_id = ask_choice("Escolha a conversa:", conversations) if action == "Continuar uma conversa existente" \
+            else storage.start_conversation(user_id)
     else:
         print("Nenhuma conversa encontrada. Iniciando nova...")
         conversation_id = storage.start_conversation(user_id)
 
-    # Inicia o chatbot
-    bot = ChatBot(user_id=user_id, conversation_id=conversation_id, storage=storage)
-    bot.start()
+    ChatBot(user_id, conversation_id, storage).start()
 
 
 if __name__ == "__main__":

@@ -3,7 +3,7 @@ from .prompt_builder import PromptBuilder
 
 
 class LLMService:
-    def __init__(self, model_name="llama3"):
+    def __init__(self, model_name: str = "llama3"):
         self.model = OllamaLLM(model=model_name)
         self.prompt_builder = PromptBuilder()
         self.chain = self.prompt_builder.prompt_template | self.model
