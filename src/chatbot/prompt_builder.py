@@ -2,10 +2,15 @@ from langchain_core.prompts import ChatPromptTemplate
 
 
 class PromptBuilder:
-    TEMPLATE = """Answer the question below. Here is the conversation history:
+    TEMPLATE = """You are a helpful and conversational AI assistant. Based on the conversation history below, answer the user's latest question as clearly and helpfully as possible.
+
+Conversation History:
 {context}
-Question: {question}
-Answer:"""
+
+User's Question:
+{question}
+
+Your Answer:"""
 
     def __init__(self):
         self.prompt_template = ChatPromptTemplate.from_template(self.TEMPLATE)

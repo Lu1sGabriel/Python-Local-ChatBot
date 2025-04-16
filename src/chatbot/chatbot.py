@@ -17,7 +17,7 @@ class ChatBot:
         )
 
     def start(self):
-        print(f"🤖 Welcome back, {self.user_id}!\nType 'exit' to quit.\n")
+        print(f"🤖 Welcome, {self.user_id}!\nType 'exit' to quit.\n")
 
         while True:
             user_input = input("You: ").strip()
