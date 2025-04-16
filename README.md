@@ -1,6 +1,6 @@
-# 🤖 Chatbot Local com Oylama (LLaMA 3)
+# 🤖 Chatbot Local com Ollama (LLaMA 3)
 
-Este é um projeto de **chatbot local** feito em **Python**, utilizando o **Oylama** como backend de modelo de linguagem, com suporte ao modelo **LLaMA 3**. Tudo roda **localmente**, usando o seu **processador e placa de vídeo**, sem necessidade de pagar por APIs como OpenAI ou Gemini.
+Este é um projeto de **chatbot local** feito em **Python**, utilizando o **Ollama** como backend de modelo de linguagem, com suporte ao modelo **LLaMA 3**. Tudo roda **localmente**, usando o seu **processador e placa de vídeo**, sem necessidade de pagar por APIs como OpenAI ou Gemini.
 
 ---
 
@@ -14,9 +14,9 @@ Este é um projeto de **chatbot local** feito em **Python**, utilizando o **Oyla
 
 ---
 
-## 🧠 O que é Oylama?
+## 🧠 O que é Ollama?
 
-Oylama (anteriormente Ollama) é uma ferramenta que permite rodar modelos de linguagem grandes (LLMs) localmente no seu computador.
+Ollama (anteriormente Ollama) é uma ferramenta que permite rodar modelos de linguagem grandes (LLMs) localmente no seu computador.
 
 Site oficial: [https://ollama.com](https://ollama.com)
 
@@ -28,7 +28,7 @@ Site oficial: [https://ollama.com](https://ollama.com)
 - Um computador com performance razoável
   - Preferencialmente com **GPU**
 - Espaço livre em disco (modelos podem ocupar de 3 a 10GB)
-- Oylama instalado
+- Ollama instalado
 
 ---
 
@@ -64,7 +64,7 @@ langchain-community
 langchain-ollama
 ```
 
-### 4. Instale o Oylama
+### 4. Instale o Ollama
 
 1. Acesse [https://ollama.com](https://ollama.com)
 2. Baixe o instalador e siga os passos na tela.
